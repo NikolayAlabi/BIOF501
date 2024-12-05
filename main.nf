@@ -14,7 +14,6 @@ Channel
 process genome_index{
     input:
         path(genome)
-
     output:
         tuple path("${genome.getName()}"), path("${genome.getName()}.*")
     //We create an empty fasta file in order for the following step to know where the index files are stored.
@@ -38,11 +37,12 @@ process alignReads {
 
     script:
     """
-    # Align paired-end reads to the reference genome
+    # Align paired-end reads to the reference genome, convert to a bam file and then sort the bam file
     bwa mem ${genome} ${R1} ${R2} | samtools view -S -b | samtools sort -o ${sample_id}.aligned.sorted.bam
     """
 }
 
+// This process identifies 
 process variantCalling {
     input:
     path(genome)
