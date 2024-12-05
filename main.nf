@@ -10,24 +10,23 @@ Channel
     .fromFilePairs(params.reads, flat: true)
     .set { read_pairs }
 
-//publishDir 'data/reference_genome', mode: 'copy'
+// The following process performs bwa indexing on the reference genome. This is necessary for the subsequent alignment phase
 process genome_index{
     input:
         path(genome)
 
     output:
         tuple path("${genome.getName()}"), path("${genome.getName()}.*")
-    
+    //We create an empty fasta file in order for the following step to know where the index files are stored.
     script:
     """
     bwa index -p ${genome.getName()} ${genome}
     touch "${genome.getName()}"
     """
-    //touch "out/${genome.getBaseName()}.fasta"
 
 }
 
-// Process to run BWA for each pair of reads
+// Process to run BWA for each pair of reads. This is then outputted to 
 process alignReads {
     input:
     tuple path(genome), path(index_files)
