@@ -37,7 +37,16 @@ Now you are all ready to run the workflow.
 nextflow main.nf
 ```
 ## Pipeline Overview
+This workflow was built using `Nextflow`, a useful tool to create reproducible and scalable data analyses. Example data have been provided in the data folder to demonstrate how this pipeline runs. 
+### Input Data
+The example input data consists of a standard fasta file of an _E. coli_ genome along with 3 sets of fastq paired end reads of RNA seq data from a time experiment. For more information on these samples, you can refer to this [SRA Experiment](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA295606) It is important to note that these fastq samples are already trimmed and filtered by using the clipped and filtered options available when download SRA RNAseq data. Moreover, these samples have been downsampled in order to demonstrate the pipeline on a small and quick dataset. The fastq files must be gunzipped and have a pair of files to represent each sample. 
 
+This pipeline can be ran with custom data, showing its generizalibililty for other bigger projects or with different species. Currently this pipeline can only be ran for haploid organisms, however in the future it will be able to others. 
+```
+#ensure fastq naming pattern matches your own
+nextflow main.nf --reads 'path/to/reads_directory/*_{1,2}.trim.sub.fastq" --reference "path/to/reference_genome/ecoli.fasta" --ploidy 1
+```
+### Pipeline In-Depth
 
 ## References
 1. Lenski, R. E. et al. (1991). Long-term experimental evolution in Escherichia coli. American Naturalist.
