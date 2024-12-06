@@ -47,11 +47,22 @@ This pipeline can be ran with custom data, showing its generizalibililty for oth
 nextflow main.nf --reads 'path/to/reads_directory/*_{1,2}.trim.sub.fastq" --reference "path/to/reference_genome/ecoli.fasta" --ploidy 1
 ```
 ### Pipeline In-Depth
+![alt text](https://github.com/NikolayAlabi/BIOF501/blob/main/dag3.png)
+
 A figure depicting the workflow is shown above. The workflow is broken up into 4 major steps. 
 1. The alignment of reads against the genome. The input files of this pipeline include the e.coli genome which gets indexed as well as the pairs of reads which get aligned. 
 2. The next step is variant calling on the alignments to identify mutations. The variant call files for each sample are then merged into one file and a reference genome is added to the file to aid with tree interpretation.
 3. The SNP genotypes present in the VCF file are then used to create a matrix for phylogenetic analysis.
-4. A phylogenetic tree is then constructed and visualized.
+4. A phylogenetic tree is then constructed using IQTree and visualized.
+
+For more specific details at each step, please refer to the documentation in the `main.nf` file.
+
+### Expected Outputs
+The key files produced in the `output/` folder are:
+1. `merged_altered_variants.vcf` This is a standard vcf file that can be viewed in Excel. It should contain a column per sample as well as "Reference" column.
+2. `merged_altered_variants.min1.phy` This is the matrix that is used to construct the phylogenetic tree.
+3. `merged_altered_variants.min1.phy.iqtree` This is the main output from the IQTree and contains details of the parameters of the construction of the tree.
+4. `tree_plot.png` This is a visualization of the tree made from `merged_altered_variants.min1.phy.tree`.
 
 
 ## References
