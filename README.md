@@ -47,6 +47,12 @@ This pipeline can be ran with custom data, showing its generizalibililty for oth
 nextflow main.nf --reads 'path/to/reads_directory/*_{1,2}.trim.sub.fastq" --reference "path/to/reference_genome/ecoli.fasta" --ploidy 1
 ```
 ### Pipeline In-Depth
+A figure depicting the workflow is shown above. The workflow is broken up into 4 major steps. 
+1. The alignment of reads against the genome. The input files of this pipeline include the e.coli genome which gets indexed as well as the pairs of reads which get aligned. 
+2. The next step is variant calling on the alignments to identify mutations. The variant call files for each sample are then merged into one file and a reference genome is added to the file to aid with tree interpretation.
+3. The SNP genotypes present in the VCF file are then used to create a matrix for phylogenetic analysis.
+4. A phylogenetic tree is then constructed and visualized.
+
 
 ## References
 1. Lenski, R. E. et al. (1991). Long-term experimental evolution in Escherichia coli. American Naturalist.
