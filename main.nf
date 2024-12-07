@@ -116,10 +116,9 @@ process tree {
 process visualize{
     publishDir "output", mode: "copy"
     input:
-    path(iqtree)
     path(treefile)
-    //output:
-    //path("tree_plot.png")
+    output:
+    path("tree_plot.png")
     script:
     """
     visualize_tree.R ${treefile} tree_plot.png
